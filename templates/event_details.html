@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>{{ event.name }}</h2>
+<p>{{ event.description }}</p>
+
+{% if event.picture %}
+    <img src="{{ url_for('static', filename='uploads/' + event.picture) }}" alt="{{ event.name }}" class="img-fluid">
+{% endif %}
+
+<h3>Attendees</h3>
+<ul>
+    {% for attendee in attendees %}
+        <li>
+            <!-- Make the username clickable -->
+            <a href="{{ url_for('private_chat', recipient_id=attendee.user_id) }}">{{ attendee.username }}</a>
+        </li>
+    {% endfor %}
+</ul>
+
+{% if current_user.is_authenticated %}
+    {% if is_registered %}
+        <a href="{{ url_for('chat', event_id=event._id) }}" class="btn btn-primary">Group Chat</a>
+    {% else %}
+        <form method="POST">
+            <button type="submit" class="btn btn-primary">Register for this event</button>
+        </form>
+    {% endif %}
+{% else %}
+    <p><a href="{{ url_for('login') }}">Log in</a> to register for this event.</p>
+{% endif %}
+{% endblock %}

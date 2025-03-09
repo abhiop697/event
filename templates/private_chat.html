@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Private Chat with {{ recipient.username }}</h2>
+<div id="private-chat-box">
+    {% for chat in private_chat_history %}
+        <p><strong>{{ chat.sender_username }}</strong> ({{ chat.timestamp }}): {{ chat.message }}</p>
+    {% endfor %}
+</div>
+<form id="private-chat-form">
+    <input type="text" id="private-message" placeholder="Type your message...">
+    <button type="submit">Send</button>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+<script>
+    var socket = io();
+
+    // Handle incoming private messages
+    socket.on('private_message', function(data) {
+        var chatBox = document.getElementById('private-chat-box');
+        chatBox.innerHTML += `<p><strong>${data.sender_username}</strong> (${data.timestamp}): ${data.message}</p>`;
+    });
+
+    // Send private messages
+    document.getElementById('private-chat-form').onsubmit = function(e) {
+        e.preventDefault();
+        var message = document.getElementById('private-message').value;
+        socket.emit('private_message', { recipient_id: '{{ recipient._id }}', message: message });
+        document.getElementById('private-message').value = '';
+    };
+</script>
+{% endblock %}

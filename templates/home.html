@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <!-- Hero Section -->
+    <section class="text-center">
+        <h1 class="display-4 fw-bold">Welcome to Event Networking Platform</h1>
+        <p class="lead">Connect, Engage, and Network with Like-Minded Professionals.</p>
+        <a href="{{ url_for('events') }}" class="btn btn-primary btn-lg">Explore Events</a>
+    </section>
+
+    <!-- About Section -->
+    <section class="mt-5 text-center">
+        <h2>About Our Platform</h2>
+        <p class="text-muted">We provide a seamless platform for event organizers and attendees to connect, chat, and grow their networks.</p>
+    </section>
+
+    <!-- Featured Photos / Gallery -->
+    <section class="mt-5">
+        <h2 class="text-center">Event Highlights</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/1.jpg') }}" class="img-fluid rounded shadow-sm" alt="Event 1">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/2.jpg') }}" class="img-fluid rounded shadow-sm" alt="Event 2">
+            </div>
+            <div class="col-md-4">
+                <img src="{{ url_for('static', filename='images/3.jpg') }}" class="img-fluid rounded shadow-sm" alt="Event 3">
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Features -->
+    <section class="mt-5 text-center">
+        <h2>Key Features</h2>
+        <div class="row mt-4">
+            <div class="col-md-4">
+                <h4>🎤 Organize Events</h4>
+                <p>Create and manage events effortlessly.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>💬 Group & Private Chat</h4>
+                <p>Engage with attendees through real-time chat.</p>
+            </div>
+            <div class="col-md-4">
+                <h4>🌍 Discover & Register</h4>
+                <p>Find exciting events and register instantly.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Floating Footer at the Bottom -->
+<style>
+    footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
+</style>
+
+{% endblock %}

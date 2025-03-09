@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2 class="text-center w-100">Register</h2>
+<form method="POST">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+        <option value="attendee">Attendee</option>
+        <option value="organizer">Organizer</option>
+    </select>
+
+    <button type="submit">Register</button>
+</form>
+{% endblock %}

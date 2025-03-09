@@ -1,0 +1,125 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures the body takes the full viewport height */
+}
+
+header {
+    background-color: #343a40;
+    padding: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 1rem;
+}
+
+.alert {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 0.25rem;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+form {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Ensure the main content pushes the footer down */
+main {
+    flex: 1;
+}
+
+/* Stick footer to the bottom properly */
+footer {
+    width: 100%;
+    background-color: #212529; /* Dark background */
+    color: white;
+    text-align: center;
+    padding: 15px;
+    position: relative; /* Prevents floating */
+}
+
+.card {
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for better look */
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.card img {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}.btn-custom {
+    background-color: #1c5721 !important; /* Orange color */
+    border-color: #37762c !important;
+    color: white !important; /* Ensure text is visible */
+}
+
+.btn-custom:hover {
+    background-color: #909c25 !important; /* Darker orange on hover */
+    border-color: #e7e741 !important;
+    color: white !important;
+}
+
+/* Book Now Button (Grey) */
+.btn-custom {
+    background-color: grey;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    transition: 0.3s;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.btn-custom:hover {
+    background-color: darkgrey;
+}
+
+/* Delete Button (Red) */
+.btn-danger {
+    background-color: red;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: darkred;
+}
+

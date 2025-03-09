@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Search Results</h2>
+<h3>Events</h3>
+<ul>
+    {% for event in events %}
+        <li>{{ event.name }}</li>
+    {% endfor %}
+</ul>
+<h3>Users</h3>
+<ul>
+    {% for user in users %}
+        <li>{{ user.username }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

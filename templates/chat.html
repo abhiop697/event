@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Group Chat for {{ event.name }}</h2>
+
+<!-- Chat Box -->
+<div id="chat-box" style="height: 300px; overflow-y: auto; border: 1px solid #ccc; padding: 10px; background: #f9f9f9;">
+    {% for chat in chat_history %}
+        <p class="chat-message"
+            style="background-color: {% if loop.index0 % 2 == 0 %} #e6f7ff {% else %} #ffebcc {% endif %}; 
+                   padding: 5px; border-radius: 5px;">
+            <strong style="color: #333;">{{ chat.sender_username }}</strong> 
+            <span style="color: gray;">({{ chat.timestamp }})</span>: 
+            <span>{{ chat.message | e }}</span>
+        </p>
+    {% endfor %}
+</div>
+
+<!-- Chat Form -->
+<form id="chat-form">
+    <input type="text" id="message" placeholder="Type your message..." required>
+    <button type="submit">Send</button>
+</form>
+
+<!-- Include Socket.io -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+<script>
+    var socket = io();
+    var colors = ["#e6f7ff", "#ffebcc", "#e6ffe6", "#fff0f5", "#f5f5dc"]; // Light alternating colors
+    var messageIndex = 0; // To keep track of message color rotation
+
+    // Join the chat room
+    socket.emit('join', { event_id: '{{ event._id }}' });
+
+    // Append messages dynamically with alternating colors
+    function appendMessage(sender, timestamp, message) {
+        var chatBox = document.getElementById('chat-box');
+        var msgElement = document.createElement('p');
+
+        // Set background color dynamically
+        msgElement.style.backgroundColor = colors[messageIndex % colors.length]; 
+        msgElement.style.padding = "8px";
+        msgElement.style.borderRadius = "8px";
+        msgElement.style.margin = "5px 0"; 
+        msgElement.style.wordBreak = "break-word"; 
+
+        msgElement.innerHTML = `
+            <strong style="color: #333;">${sender}</strong> 
+            <span style="color: gray;">(${timestamp})</span>: 
+            <span>${message}</span>
+        `;
+
+        chatBox.appendChild(msgElement);
+        chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to latest message
+
+        messageIndex++; // Move to the next color
+    }
+
+    // Handle incoming messages
+    socket.on('group_message', function(data) {
+        appendMessage(data.sender_username, data.timestamp, data.message);
+    });
+
+    // Send message to group chat
+    document.getElementById('chat-form').onsubmit = function(e) {
+        e.preventDefault();
+        var messageInput = document.getElementById('message');
+        var message = messageInput.value.trim();
+        if (message) {
+            socket.emit('group_message', { event_id: '{{ event._id }}', message: message });
+            messageInput.value = '';
+        }
+    };
+</script>
+
+{% endblock %}
